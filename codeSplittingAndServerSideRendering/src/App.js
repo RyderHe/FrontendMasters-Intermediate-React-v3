@@ -1,5 +1,5 @@
 import { useState, StrictMode, lazy, Suspense } from "react";
-import { render } from "react-dom";
+// import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 // import Details from "./Details";
 // import SearchParams from "./SearchParams";
@@ -11,32 +11,37 @@ const SearchParams = lazy(() => import("./SearchParams"));
 const App = () => {
   const theme = useState("darkblue");
   return (
-    <ThemeContext.Provider value={theme}>
-      <div>
-        <h2>this h2 wont go away</h2>
-        <Suspense fallback={<h2>loading router...</h2>}>
-          <Router>
-            <header>
-              <Link to="/">Adopt Me!</Link>
-            </header>
-            <Switch>
-              <Route path="/details/:id">
-                <Details />
-              </Route>
-              <Route path="/">
-                <SearchParams />
-              </Route>
-            </Switch>
-          </Router>
-        </Suspense>
-      </div>
-    </ThemeContext.Provider>
+    <StrictMode>
+
+      <ThemeContext.Provider value={theme}>
+        <div>
+          <h2>this h2 wont go away</h2>
+          <Suspense fallback={<h2>loading router...</h2>}>
+            {/* <Router> */}
+              <header>
+                <Link to="/">Adopt Me!</Link>
+              </header>
+              <Switch>
+                <Route path="/details/:id">
+                  <Details />
+                </Route>
+                <Route path="/">
+                  <SearchParams />
+                </Route>
+              </Switch>
+            {/* </Router> */}
+          </Suspense>
+        </div>
+      </ThemeContext.Provider>
+    </StrictMode>
   );
 };
 
-render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-  document.getElementById("root")
-);
+// render(
+//   <StrictMode>
+//     <App />
+//   </StrictMode>,
+//   document.getElementById("root")
+// );
+
+export default App;
